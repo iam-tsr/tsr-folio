@@ -21,6 +21,10 @@
         {% for link in publication.links %}
         {% if link.url or link.src %}
         {% assign publicationHref = link.url | default: link.src %}
+        {% if publicationHref contains '://' %}
+        {% else %}
+        {% assign publicationHref = site.baseurl | append: '/' | append: publicationHref %}
+        {% endif %}
         {% if link.icon %}
         <a class="button" href="{{ publicationHref }}" target="_blank" rel="noopener noreferrer"><i
                 class="{{ link.icon }}"></i>{{ link.name }}</a>
